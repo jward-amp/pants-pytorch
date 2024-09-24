@@ -1,0 +1,34 @@
+[GLOBAL]
+pants_version = "2.21.0"
+backend_packages = [
+    "pants.backend.docker",
+    "pants.backend.python",
+]
+
+[python]
+default_resolve = "common"
+enable_resolves = true
+interpreter_constraints = ["CPython==3.11.*"]
+
+[python-repos]
+indexes.add = ["https://download.pytorch.org/whl/cpu"]
+#find_links = [
+#    "https://download.pytorch.org/whl/torch/",
+#]
+
+[python.resolves]
+common = "3rdparty/python/common.lock"
+cpu = "3rdparty/python/cpu.lock"
+mac = "3rdparty/python/mac.lock"
+
+[python-bootstrap]
+search_path = [
+    "<PYENV>", 
+]
+
+[source]
+root_patterns = ["src/python"]
+
+[environments-preview.names]
+default = "//:local"
+linux_x86_64 = "//:linux_x86_64"
