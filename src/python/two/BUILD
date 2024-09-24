@@ -1,6 +1,5 @@
 python_sources(
     name="lib",
-    resolve="common",
 )
 
 pex_binary(

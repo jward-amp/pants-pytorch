@@ -1,25 +1,23 @@
 python_requirements(
-    name="base-reqs",
-    source="common.requirements.txt",
-    resolve=parametrize("cpu", "mac"),
-)
-
-python_requirements(
     name="common-reqs",
-    source="requirements.txt",
-    resolve="common",
+    source="common.requirements.txt",
+    resolve=parametrize("cpu", "gpu", "mac"),
 )
 
-# todo: figure out a pure common.lock for non-pytorch stuff ... is it possible?
+python_requirement(
+    name="torch-gpu",
+    requirements=["torch==2.3.0+cu118"],
+    resolve="gpu",
+)
 
-python_requirements(
-    name="cpu-reqs",
-    source="cpu.requirements.txt",
+python_requirement(
+    name="torch-cpu",
+    requirements=["torch==2.3.0+cpu"],
     resolve="cpu",
 )
 
-python_requirements(
+python_requirement(
     name="mac-reqs",
-    source="mac.requirements.txt",
+    requirements=["torch==2.3.0,!=2.3.0+cpu,!=2.3.0+cu118"],
     resolve="mac",
 )

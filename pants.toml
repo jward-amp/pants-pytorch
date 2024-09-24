@@ -1,24 +1,34 @@
 [GLOBAL]
 pants_version = "2.21.0"
 backend_packages = [
+    "pants.backend.build_files.fmt.black",
     "pants.backend.docker",
     "pants.backend.python",
+    "pants.backend.python.lint.black",
 ]
 
+[cli.alias]
+run-cpu = "--python-default-resolve=cpu run"
+run-gpu = "--python-default-resolve=gpu run"
+run-mac = "--python-default-resolve=mac run"
+
 [python]
-default_resolve = "common"
+default_resolve = "mac"
 enable_resolves = true
 interpreter_constraints = ["CPython==3.11.*"]
 
 [python-repos]
-indexes.add = ["https://download.pytorch.org/whl/cpu"]
+indexes.add = [
+    "https://download.pytorch.org/whl/cpu",
+    "https://download.pytorch.org/whl/cu118"
+]
 #find_links = [
 #    "https://download.pytorch.org/whl/torch/",
 #]
 
 [python.resolves]
-common = "3rdparty/python/common.lock"
 cpu = "3rdparty/python/cpu.lock"
+gpu = "3rdparty/python/gpu.lock"
 mac = "3rdparty/python/mac.lock"
 
 [python-bootstrap]

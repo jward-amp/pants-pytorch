@@ -1,4 +1,9 @@
-__defaults__(all=dict(environment="default"))
+__defaults__(
+    all=dict(
+        environment="default",
+        resolve=parametrize("cpu", "gpu", "mac"),
+    ),
+)
 
 local_environment(
     name="local",
